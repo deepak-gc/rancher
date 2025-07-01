@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: local-rancher-backup-crd
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: rancher-backup-crd
+    repoURL: https://charts.rancher.io
+    targetRevision: 102.0.0+up3.1.0
+    helm:
+      releaseName: rancher-backup-crd
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cattle-resources-system
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

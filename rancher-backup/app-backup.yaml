@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: local-rancher-backup-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    path: rancher/local
+    repoURL: https://github.com/deepak-gc/rancher.git
+    targetRevision: main
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cattle-resources-system

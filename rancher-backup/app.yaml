@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: local-rancher-backup
+  namespace: argocd
+spec:
+  project: platform-orchestration
+  source:
+    chart: rancher-backup
+    repoURL: https://charts.rancher.io
+    targetRevision: 102.0.0+up3.1.0
+    helm:
+      releaseName: rancher-backup
+      values: |
+        s3:
+          enabled: true
+          region: EU
+          bucketName: some-bucket
+          folder: rancher
+          endpoint: storage.googleapis.com
+          credentialSecretName: rancher-backup-s3-creds
+          credentialSecretNamespace: cattle-resources-system
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: cattle-resources-system

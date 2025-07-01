@@ -1,0 +1,11 @@
+apiVersion: resources.cattle.io/v1
+kind: Backup
+metadata:
+  annotations:
+    field.cattle.io/description: backup for the clusters managed by rancher
+  name: prod-backup
+spec:
+  encryptionConfigSecretName: ''
+  resourceSetName: rancher-resource-set
+  retentionCount: 30
+  schedule: '@midnight'
